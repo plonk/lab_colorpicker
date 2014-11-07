@@ -53,6 +53,7 @@ function initialize_app() {
     App.ctl.hue.oninput = on_hue_input;
 
     App.ctl.sample = document.getElementById('target_sample');
+    App.ctl.sample.oninput = on_sample_input;
 
     App.ctl.desaturate = document.getElementById('desaturate');
     App.ctl.desaturate.onclick = on_desaturate_click;
@@ -60,6 +61,18 @@ function initialize_app() {
     App.ctl.adjustl.onclick = on_adjustl_click;
 
     App.target = { l: 50, a: 0, b: 0 };
+}
+
+function on_sample_input() {
+    var rgb = parse_color(App.ctl.sample.value);
+
+    console.log("sample1");
+    if (!rgb) { return false; }
+    console.log("sample2");
+
+    App.target = rgb_to_lab(rgb);
+    redraw();
+    return true;
 }
 
 function on_hue_input() {
@@ -152,7 +165,7 @@ function lab_to_canvas(lab) {
     var h = Number(App.canvas.height);
     var x = (lab.a + 128) / 256 * w;
     var y = h - ((lab.b + 128) / 256 * h);
-    
+
     return { x: x, y: y };
 }
 
@@ -168,15 +181,15 @@ function draw_crosshair(context, lab_color, style) {
 
     context.moveTo(x, y - 4);
     context.lineTo(x, y - 9);
-    context.stroke();    
+    context.stroke();
 
     context.moveTo(x, y + 4);
     context.lineTo(x, y + 9);
-    context.stroke();    
+    context.stroke();
 
     context.moveTo(x - 4, y);
     context.lineTo(x - 9, y);
-    context.stroke();    
+    context.stroke();
 
     context.moveTo(x + 4, y);
     context.lineTo(x + 9, y);
@@ -209,14 +222,14 @@ function draw_color_slice(ctx, width, height, lightness) {
             switch (state) {
             case 0:
                 if (rgb_in_range(rgb)) {
-                    ctx.fillStyle = rgb_to_string(rgb); 
+                    ctx.fillStyle = rgb_to_string(rgb);
                     ctx.fillRect(x, y, 1, 1);
                     state = 1;
                 }
                 break;
             case 1:
                 if (rgb_in_range(rgb)) {
-                    ctx.fillStyle = rgb_to_string(rgb); 
+                    ctx.fillStyle = rgb_to_string(rgb);
                     ctx.fillRect(x, y, 1, 1);
                 } else {
                     state = 2;
@@ -231,7 +244,7 @@ function draw_color_slice(ctx, width, height, lightness) {
 
 function parse_color(value) {
     var m;
-   
+
     if (m = value.match(/^#(.)(.)(.)$/)) {
         return { r: parseInt("0x"+m[1]) / 15 * 255,
                  g: parseInt("0x"+m[2]) / 15 * 255,
@@ -245,30 +258,19 @@ function parse_color(value) {
     }
 }
 
-function fill_sample(name, lab) {
-    cs = document.getElementById(name);
-    cs.style.backgroundColor = rgb_to_string(lab_to_rgb(lab));
-    cs.textContent = rgb_to_string(lab_to_rgb(lab));
-
-    csc = document.getElementById(name+"_clipped");
-    csc.style.backgroundColor = rgb_to_string_clipped(lab_to_rgb(lab));
-    csc.textContent = rgb_to_string_clipped(lab_to_rgb(lab));
-}
-
 function fill_sample() {
-    App.ctl.sample.style.backgroundColor = rgb_to_string(lab_to_rgb(App.target));
+    App.ctl.sample.value = rgb_to_hex(lab_to_rgb(App.target));
 }
 
 function distance_origin(x, y) {
     return Math.sqrt(x * x + y * y);
 }
 
-
 function redraw() {
     var width, height;
 
     if (!App.target) return false;
- 
+
     width = Number(App.canvas.width);
     height = Number(App.canvas.height);
 
@@ -287,22 +289,6 @@ function str_repeat(phrase, n) {
     return res;
 }
 
-function pad_zero(str, n) {
-    if (str.length >= n) {
-        return str;
-    } else {
-        return str_repeat('0', n - str.length);
-    }
-}
-
-function to_hex(rgb) {
-    var hex = [ rgb.r, rgb.g, rgb.b ].map(function (f) {
-        return pad_zero(Math.round(f).toString(16), 2);
-    }).join("");
-
-    return "#" + hex;
-}
-
 function update_controls() {
     var rgb;
 
@@ -318,7 +304,7 @@ function update_controls() {
     App.ctl.hue.value = lab_hue_degree(App.target);
 
     if (lab_is_real(App.target)) {
-        App.ctl.color.value = to_hex(lab_to_rgb(App.target));
+        App.ctl.color.value = rgb_to_hex(lab_to_rgb(App.target));
     } else {
         App.ctl.color.value = "n/a";
     }
@@ -334,7 +320,7 @@ function update_lightness_bar() {
     var h = Number( App.ctl.lightness_bar.height );
     var xnotch = w / 100;
     var l;
-    
+
     ctx.fillStyle = "#888";
     ctx.fillRect(0, 0, w, h);
 

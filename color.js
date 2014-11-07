@@ -112,6 +112,25 @@ function rgb_to_string(rgb) {
         return "rgb(128,128,128)";
 }
 
+function pad_zero(str, n) {
+    if (str.length >= n) {
+        return str;
+    } else {
+        return str_repeat('0', n - str.length);
+    }
+}
+
+function rgb_to_hex(rgb) {
+    if (rgb_in_range(rgb)) {
+        var hex = [ rgb.r, rgb.g, rgb.b ].map(function (f) {
+            return pad_zero(Math.round(f).toString(16), 2);
+        }).join("");
+        return "#" + hex;
+    } else {
+        return "#808080";
+    }
+}
+
 function rgb_to_string_clipped(rgb) {
     var clip = function (x) { 
         if (x < 0) return 0; else if (x > 255) return 255; else return x;
