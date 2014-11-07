@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Labカラーピッカー</title>
+    <link rel="shortcut icon" href="icon.png" type="image/png" />
+    <link rel="icon" href="icon.png" type="image/png" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,700italic,700,300italic' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      .wrapper {
+          width: 538px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          background-color: #eee;
+          padding: 1.5em;
+          border-radius: 15px;
+          box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+      }
+      .sample { background-color: rgb(255,0,255); font-size: small; text-align: center; width: 128px; height: 2em; }
+      #plane { float: right }
+      h3 { font-weight: normal; }
+      body {
+	  background-color: #aaa;
+	  font-family: Roboto;
+	  <!-- height: 50vh; -->
+	  }
+      .spinbutton { height: 1.5em; width: 3em; text-align: center }
+      #control-pane { vertical-align: top }
+      #controls { width: auto; }
+      #controls > th { text-align: right; padding-right: 0.5em }
+      button { width: 8em; }
+      .hex { width: 4em; }
+      input, button { font-family: Roboto;font-size: 12pt;  }
+      h1 { text-align: center; font-style: italic; font-weight: bold; color: #d6ef2b }
+    </style>
+  </head>
+  <body>
+
+    <h1>Labカラーピッカー</h1>
+
+    <div class=wrapper>
+
+      <!-- ごめんなさいレイアウトテーブル -->
+      <table>
+        <tr>
+          <td valign=top>
+            <canvas id=plane width="400" height="400" style="margin-top: 3px; ">
+              canvas not supported
+            </canvas><br>
+            <canvas id="lightness_bar" width="400" height="30">
+            </canvas>
+          </td>
+          <td id="control-pane">
+
+            <table id=controls>
+              <tr>
+                <td colspan=2>
+                  <div class=sample id="target_sample"></div>
+                </td>
+              </tr>
+
+              <tr><td colspan=2><hr></td></tr>
+
+              <tr>
+                <th>L:</th>
+                <td><input class=spinbutton id="l" type="number" min=0 max=100></td>
+              </tr>
+              <tr>
+                <th>a:</th>
+                <td><input class=spinbutton id="a" type="number" min="-128" max="128"></td>
+              </tr>
+              <tr>
+                <th>b:</th>
+                <td><input class=spinbutton id="b" type="number" min="-128" max="128"></td>
+              </tr>
+
+              <tr><td colspan=2><hr></td></tr>
+
+              <tr>
+                <th>R:</th>
+                <td><input class=spinbutton id="rgb_r" type="number"></td>
+              </tr>
+              <tr>
+                <th>G:</th>
+                <td><input class=spinbutton id="rgb_g" type="number"></td>
+              </tr>
+              <tr>
+                <th>B:</th>
+                <td><input class=spinbutton id="rgb_b" type="number"></td>
+              </tr>
+
+              <tr>
+                <th>Hex:</th>
+                <td>
+                  <input type=text id=color class=hex size=7>
+                </td>
+              </tr>
+
+
+
+              <tr><td colspan=2><hr></td></tr>
+
+              <tr>
+                <th>&ang;: </th>
+                <td><input class=spinbutton id="hue" type="number">°</td>
+              </tr>
+
+              <tr><td colspan=2><hr></td></tr>
+
+              <tr>
+                <td colspan=2 style="text-align: center"><button id=desaturate>Desaturate</button></td>
+              </tr><tr>
+                <td colspan=2 style="text-align: center"><button id=adjustl>Adjust L</button></td>
+              </tr>
+
+            </table>
+
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class=wrapper>
+      <p>
+	同じ明るさで違う色を選びたいと思ったことはありませんか？
+	「伝わる」視覚作品を作るためには、画面にしっかりとした明度の構造があることが重要です。
+      </p>
+
+      <p>
+	コンピュータでは基本的に赤・緑・青の３つの変数で色が表されることはご存知だと思います。
+	これが <a href="http://ja.wikipedia.org/wiki/RGB
+">RGB 表色系</a>ですが、明度を色に独立して変化させられないという欠点があります。
+      </p>
+
+      <p>
+	そのため色相・彩度・明度の <a href="http://ja.wikipedia.org/wiki/HSV%E8%89%B2%E7%A9%BA%E9%96%93">HSV 表色系</a>が一般に使用されるのですが、
+	HSV の「明度」とは、実はある色相での相対的な明るさを示していて、
+	色相を変化させると、明度が同じでも実際に感じられる明るさが変化してしまいます。
+      </p>
+
+      <p>
+	より正確に人間の明度の知覚を再現した表色系が、<a href="http://ja.wikipedia.org/wiki/Lab%E8%89%B2%E7%A9%BA%E9%96%93
+">Lab 色空間</a>です。
+	Lab の L は明度を、a と b はそれぞれ２つの補色間の位置を表しています。
+	横軸の a は「緑～マゼンタ」で、縦軸の b は「青～黄色」です。
+      </p>
+
+      <p>
+	「Lab カラーピッカー」は、この Lab 色空間を基に、同じ明るさの別の色を簡単に選択するために設計されたカラーピッカーです。
+      </p>
+    </div>
+
+    <script src="color.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
