@@ -10,7 +10,14 @@
   </head>
   <body>
 
-    <h1>Labカラーピッカー</h1>
+    <!-- navbar -->
+    <div class=navbar>
+      <a href="colorpicker.html">
+        <img width=100 height=50 src="logo2.svg">
+      </a>
+      <a href="about.html">About</a>
+    </div>
+    <!-- end navbar -->
 
     <div class=wrapper>
 
@@ -94,37 +101,6 @@
       </table>
 
     </div>
-
-    <div class=wrapper>
-      <p>
-	同じ明るさで違う色を選びたいと思ったことはありませんか？
-	「伝わる」視覚作品を作るためには、画面にしっかりとした明度の構造があることが重要です。
-      </p>
-
-      <p>
-	コンピュータでは基本的に赤・緑・青の３つの変数で色が表されることはご存知だと思います。
-	これが <a href="http://ja.wikipedia.org/wiki/RGB
-">RGB 表色系</a>ですが、明度を色に独立して変化させられないという欠点があります。
-      </p>
-
-      <p>
-	そのため色相・彩度・明度の <a href="http://ja.wikipedia.org/wiki/HSV%E8%89%B2%E7%A9%BA%E9%96%93">HSV 表色系</a>が一般に使用されるのですが、
-	HSV の「明度」とは、実はある色相での相対的な明るさを示していて、
-	色相を変化させると、明度が同じでも実際に感じられる明るさが変化してしまいます。
-      </p>
-
-      <p>
-	より正確に人間の明度の知覚を再現した表色系が、<a href="http://ja.wikipedia.org/wiki/Lab%E8%89%B2%E7%A9%BA%E9%96%93
-">Lab 色空間</a>です。
-	Lab の L は明度を、a と b はそれぞれ２つの補色間の位置を表しています。
-	横軸の a は「緑～マゼンタ」で、縦軸の b は「青～黄色」です。
-      </p>
-
-      <p>
-	「Lab カラーピッカー」は、この Lab 色空間を基に、同じ明るさの別の色を簡単に選択するために設計されたカラーピッカーです。
-      </p>
-    </div>
-
     <script src="color.js"></script>
     <script src="script.js"></script>
   </body>

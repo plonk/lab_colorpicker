@@ -5,6 +5,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     background-color: #eee;
+    color: #333;
     padding: 1.5em;
     border-radius: 15px;
     box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
@@ -14,6 +15,7 @@ h3 { font-weight: normal; }
 body {
 	background-color: #aaa;
 	font-family: Roboto;
+    margin: 0;
 }
 .spinbutton { height: 1.5em; width: 3em; text-align: center }
 #control-pane { vertical-align: top }
@@ -27,4 +29,26 @@ h1 { text-align: center; font-style: italic; font-weight: bold; color: #d6ef2b }
 #target_sample {
     width: 8em;
     height: 1.8em;
+}
+h2 { margin-top: 0; }
+
+.navbar {
+    background-color: #eee;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+    opacity: 0.0;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.navbar:hover {
+    opacity: 1.0;
+}
+
+.navbar > a {
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: none;
+    color: #444;
+    font-size: 14pt;
 }
