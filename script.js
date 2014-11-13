@@ -170,7 +170,6 @@ function lab_to_canvas(lab) {
 }
 
 function draw_crosshair(context, lab_color, style) {
-    var radius = 5;
     var coords = lab_to_canvas(lab_color);
     var x = coords.x, y = coords.y;
 
@@ -198,11 +197,28 @@ function draw_crosshair(context, lab_color, style) {
     context.closePath();
 }
 
+function draw_whitepoint(ctx, style) {
+    var radius = 5;
+    var whitepoint = lab_to_canvas({ l: 0, a: 0, b: 0});
+
+    ctx.beginPath();
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = style;
+
+    console.log(whitepoint);
+    ctx.arc(whitepoint.x, whitepoint.y,
+            radius,
+            0, 2*Math.PI);
+    ctx.stroke();
+}
+
 function draw_plane(ctx, width, height, lightness) {
     ctx.fillStyle = "rgb(128,128,128)";
     ctx.fillRect(0, 0, width, height);
     draw_color_slice(ctx,  width, height, lightness);
     draw_crosshair(ctx, App.target, "#fff");
+    draw_whitepoint(ctx, "#fff");
 }
 
 function draw_color_slice(ctx, width, height, lightness) {
