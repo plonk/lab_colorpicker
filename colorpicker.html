@@ -24,6 +24,8 @@
       <!-- レイアウトテーブル -->
       <table>
         <tr>
+
+          <!-- キャンバス部 -->
           <td valign=top>
             <canvas id=plane width="400" height="400" style="margin-top: 3px; ">
               canvas not supported
@@ -31,70 +33,37 @@
             <canvas id="lightness_bar" width="400" height="30">
             </canvas>
           </td>
+
+          <!-- その他の操作コントロール部 -->
           <td id="control-pane">
 
-            <table id=controls>
-              <tr>
-                <td colspan=2>
-                  <input type=color id="target_sample">
-                </td>
-              </tr>
+            <input type=color id="target_sample"><br>
+            <hr>
 
-              <tr><td colspan=2><hr></td></tr>
+            <label>L:</label>
+            <input class=spinbutton id="l" type="number" min=0 max=100><br>
+            <label>a:</label>
+            <input class=spinbutton id="a" type="number" min="-128" max="128"><br>
+            <label>b:</label>
+            <input class=spinbutton id="b" type="number" min="-128" max="128"><br>
+            <hr>
 
-              <tr>
-                <th>L:</th>
-                <td><input class=spinbutton id="l" type="number" min=0 max=100></td>
-              </tr>
-              <tr>
-                <th>a:</th>
-                <td><input class=spinbutton id="a" type="number" min="-128" max="128"></td>
-              </tr>
-              <tr>
-                <th>b:</th>
-                <td><input class=spinbutton id="b" type="number" min="-128" max="128"></td>
-              </tr>
+            <label>R:</label>
+            <input class=spinbutton id="rgb_r" type="number"><br>
+            <label>G:</label>
+            <input class=spinbutton id="rgb_g" type="number"><br>
+            <label>B:</label>
+            <input class=spinbutton id="rgb_b" type="number"><br>
+            <label>Hex:</label>
+            <input type=text id=color class=hex size=7><br>
+            <hr>
 
-              <tr><td colspan=2><hr></td></tr>
+            <label>&ang;: </label>
+            <input class=spinbutton id="hue" type="number">°<br>
+            <hr>
 
-              <tr>
-                <th>R:</th>
-                <td><input class=spinbutton id="rgb_r" type="number"></td>
-              </tr>
-              <tr>
-                <th>G:</th>
-                <td><input class=spinbutton id="rgb_g" type="number"></td>
-              </tr>
-              <tr>
-                <th>B:</th>
-                <td><input class=spinbutton id="rgb_b" type="number"></td>
-              </tr>
-
-              <tr>
-                <th>Hex:</th>
-                <td>
-                  <input type=text id=color class=hex size=7>
-                </td>
-              </tr>
-
-
-
-              <tr><td colspan=2><hr></td></tr>
-
-              <tr>
-                <th>&ang;: </th>
-                <td><input class=spinbutton id="hue" type="number">°</td>
-              </tr>
-
-              <tr><td colspan=2><hr></td></tr>
-
-              <tr>
-                <td colspan=2 style="text-align: center"><button id=desaturate>Desaturate</button></td>
-              </tr><tr>
-                <td colspan=2 style="text-align: center"><button id=adjustl>Adjust L</button></td>
-              </tr>
-
-            </table>
+            <button id=desaturate>Desaturate</button><br>
+            <button id=adjustl>Adjust L</button><br>
 
           </td>
         </tr>
