@@ -50,6 +50,8 @@ function initialize_app() {
 
     App.ctl.hue = document.getElementById('hue');
     App.ctl.hue.oninput = on_hue_input;
+    App.ctl.distance = document.getElementById('distance');
+    App.ctl.distance.onchange = on_distance_change;
 
     App.ctl.sample = document.getElementById('target_sample');
     App.ctl.sample.oninput = on_sample_input;
@@ -60,6 +62,20 @@ function initialize_app() {
     App.ctl.adjustl.onclick = on_adjustl_click;
 
     App.target = { l: 50, a: 0, b: 0 };
+}
+
+function on_distance_change() {
+    var d = +App.ctl.distance.value;
+    var theta = lab_hue_radian(App.target)
+    var a = Math.cos(theta) * d;
+    var b = Math.sin(theta) * d;
+
+    if ((a >= -128 || a <= 127) &&
+        (b >= -128 || a <= 127)) {
+        App.target = { l: App.target.l, a: a, b: b };
+    }
+
+    redraw();
 }
 
 function on_sample_input() {
@@ -302,10 +318,17 @@ function redraw() {
     update_controls();
 }
 
+function round(num, d) {
+    var val = Math.round(num * Math.pow(10,d));
+
+    return Math.floor(val / Math.pow(10,d)) + "." + pad_zero((val % Math.pow(10,d)).toString(), d);
+}
+
+
 function str_repeat(phrase, n) {
     var res = "";
 
-    while (n >= 0) {
+    while (n > 0) {
         res += phrase;
         n--;
     }
@@ -325,6 +348,7 @@ function update_controls() {
     App.ctl.rgb_b.value = Math.round(rgb.b);
 
     App.ctl.hue.value = lab_hue_degree(App.target);
+    App.ctl.distance.value = round(distance_origin(App.target.a, App.target.b), 2);
 
     if (lab_is_real(App.target)) {
         App.ctl.color.value = rgb_to_hex(lab_to_rgb(App.target));

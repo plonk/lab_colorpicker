@@ -116,7 +116,7 @@ function pad_zero(str, n) {
     if (str.length >= n) {
         return str;
     } else {
-        return str_repeat('0', n - str.length);
+        return str_repeat('0', n - str.length) + str;
     }
 }
 
@@ -132,7 +132,7 @@ function rgb_to_hex(rgb) {
 }
 
 function rgb_to_string_clipped(rgb) {
-    var clip = function (x) { 
+    var clip = function (x) {
         if (x < 0) return 0; else if (x > 255) return 255; else return x;
     };
 
