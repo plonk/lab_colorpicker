@@ -1,7 +1,6 @@
 // アプリケーションオブジェクト
 App = {}
 
-
 window.onload = function() {
     initialize_app();
 
@@ -258,17 +257,25 @@ function draw_color_slice(ctx, width, height, lightness) {
     }
 }
 
+// 12ケタの16進色コードを解釈する
 function parse_color(value) {
     var m;
 
-    if (m = value.match(/^#(.)(.)(.)$/)) {
-        return { r: parseInt("0x"+m[1]) / 15 * 255,
-                 g: parseInt("0x"+m[2]) / 15 * 255,
-                 b: parseInt("0x"+m[3]) / 15 * 255 };
-    } else if (m = value.match(/^#(..)(..)(..)$/)) {
+    if (m = value.match(/^#(..)(..)(..)$/)) {
         return { r: parseInt("0x"+m[1]),
                  g: parseInt("0x"+m[2]),
                  b: parseInt("0x"+m[3]) };
+    } else {
+        return null;
+    }
+}
+
+// 3ケタの16進色コードを解釈する
+function parse_3digit_color(value) {
+    var m;
+
+    if (m = value.match(/^#(.)(.)(.)$/)) {
+        return parse_color("#"+m[1]+m[1]+m[2]+m[2]+m[3]+m[3]);
     } else {
         return null;
     }
